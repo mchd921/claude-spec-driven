@@ -1,0 +1,10 @@
+.app-page {
+  /* 固定された下部タブにコンテンツが隠れないようにする */
+  padding-bottom: calc(56px + env(safe-area-inset-bottom, 0px) + var(--spacing-4));
+}
+
+@media (min-width: 768px) {
+  .app-page {
+    padding-bottom: 0;
+  }
+}

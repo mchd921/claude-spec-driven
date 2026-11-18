@@ -363,8 +363,9 @@ flowchart LR
   Settings["設定"] --> Exercises["種目マスタ"]
 ```
 
-- 下部ナビゲーション（Astryx `MobileNav`）: ホーム / 履歴 / グラフ / メニュー / 設定。
+- 幅 768px 未満は、画面下部に固定した**自作の下部タブ**（`ui/components/BottomTabs`）を表示する: ホーム / 履歴 / グラフ / メニュー / 設定。
 - 幅 768px 以上では `AppShell` と `SideNav` を使ったサイドナビゲーションに切り替える（NFR-2）。
+- **設計判断（2026-11-18 変更）:** Astryx の `MobileNav` はハンバーガーボタンで開く引き出しメニューで、下部タブの部品は Astryx にない。片手で 1 タップで移動できるよう、下部タブのみ自作する。`AppShell` には `mobileNav={{ hasToggle: false }}` を指定し、色は Astryx のテーマトークンを使う。
 - **起動時**、進行中のワークアウトがあれば `#/workouts/:id` にリダイレクトする（REQ-1.23）。
 
 ### 6.3 ワークアウト記録画面（中心となる画面）
@@ -397,7 +398,7 @@ flowchart LR
 
 | 用途 | Astryx コンポーネント | 要件 |
 | --- | --- | --- |
-| アプリ枠・ナビゲーション | `AppShell`, `MobileNav`, `SideNav`, `TopNav` | NFR-2 |
+| アプリ枠・ナビゲーション | `AppShell`, `SideNav`, `TopNav`（スマホの下部タブは自作） | NFR-2, NFR-3 |
 | 重量・回数の入力 | `NumberInput` | REQ-1.8 |
 | 種目名・メニュー名 | `TextInput`, `Field`, `FieldStatus`（エラー表示） | REQ-1.9, 2.3 |
 | メモ | `TextArea`（`maxLength=500`） | REQ-1.14, 1.15 |

@@ -38,16 +38,16 @@
   - [x] `fetch` を書くと `npm run lint` がエラーになる
 - 要件: NFR-8, NFR-12
 
-### [ ] T0.3 Astryx の導入とアプリの枠組み
+### [x] T0.3 Astryx の導入とアプリの枠組み
 
 - 内容:
   - Astryx の CSS を読み込み、`<Theme theme={neutralTheme} mode="system">` で全体を囲む
   - `ja-JP` ロケールを設定する
   - Hash ルーターで design.md 6.1 節の全ルートを作る（中身は見出しだけの空ページ）
-  - `AppShell` + `MobileNav`（幅 768px 未満）/ `SideNav`（768px 以上）のナビゲーションを作る
+  - `AppShell` + 自作の下部タブ（幅 768px 未満）/ `SideNav`（768px 以上）のナビゲーションを作る
 - 完了条件:
-  - [ ] 全ルートにナビゲーションから移動できる
-  - [ ] OS をダークモードにすると、アプリもダーク表示になる
+  - [x] 全ルートにナビゲーションから移動できる（`/workouts/:id` と `/templates/:id` は対象データができるまで URL 直接指定で確認。一覧からの導線は T3.x で作る）
+  - [x] OS をダークモードにすると、アプリもダーク表示になる（Chromium で確認）
 - 要件: NFR-2, NFR-9, NFR-11
 
 ### [ ] T0.4 👤 試作によるリスクの確認

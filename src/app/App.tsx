@@ -1,3 +1,13 @@
+import { HashRouter } from 'react-router';
+import { AppProviders } from './AppProviders';
+import { AppRoutes } from './routes';
+
 export function App() {
-  return <h1>筋トレ管理</h1>;
+  return (
+    <HashRouter>
+      <AppProviders>
+        <AppRoutes />
+      </AppProviders>
+    </HashRouter>
+  );
 }

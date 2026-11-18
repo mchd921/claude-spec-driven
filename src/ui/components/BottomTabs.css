@@ -1,0 +1,40 @@
+.bottom-tabs {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  background: var(--color-background-surface);
+  border-top: 1px solid var(--color-border);
+}
+
+.bottom-tabs__link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-height: 56px;
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.bottom-tabs__link[aria-current='page'] {
+  color: var(--color-text-primary);
+  font-weight: 700;
+}
+
+.bottom-tabs__link:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: -2px;
+}
+
+@media (min-width: 768px) {
+  .bottom-tabs {
+    display: none;
+  }
+}
