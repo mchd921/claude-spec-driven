@@ -25,7 +25,7 @@
   - [x] `node -v` が `v22.13.0` 以上を表示する（nvm で v22.23.5 を導入、2026-11-18）
 - 根拠: design.md 1.1 節, 9 章
 
-### [ ] T0.2 プロジェクトの雛形作成
+### [x] T0.2 プロジェクトの雛形作成
 
 - 内容: Vite + React 19 + TypeScript（strict）の雛形を作り、開発用ツールを設定する。
   - ESLint（`fetch` / `XMLHttpRequest` の使用を禁止するルールを含む）
@@ -34,8 +34,8 @@
   - `.nvmrc` に Node のバージョンを記載
   - design.md 2.2 節のディレクトリを作成
 - 完了条件:
-  - [ ] `npm run build` / `npm test` / `npm run lint` / `npm run typecheck` がすべて成功する
-  - [ ] `fetch` を書くと `npm run lint` がエラーになる
+  - [x] `npm run build` / `npm test` / `npm run lint` / `npm run typecheck` がすべて成功する
+  - [x] `fetch` を書くと `npm run lint` がエラーになる
 - 要件: NFR-8, NFR-12
 
 ### [ ] T0.3 Astryx の導入とアプリの枠組み
