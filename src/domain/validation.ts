@@ -126,7 +126,7 @@ export function validateTemplate(
 
 // ---- ワークアウトの日付（REQ-1.16, 1.17）------------------------------------
 
-function isRealDate(date: string): boolean {
+export function isRealDate(date: string): boolean {
   const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(date);
   if (!match) return false;
   const [year, month, day] = [Number(match[1]), Number(match[2]), Number(match[3])];
