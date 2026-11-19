@@ -1,3 +1,4 @@
+import { compareSetsInWorkout, compareWorkouts } from './chronology';
 import { estimated1RMUnits } from './metrics';
 import type { ID, Workout, WorkoutSet } from './types';
 
@@ -39,14 +40,7 @@ export function computePRs(
     list.sort((a, b) => {
       const wa = workoutById.get(a.workoutId)!;
       const wb = workoutById.get(b.workoutId)!;
-      return (
-        wa.date.localeCompare(wb.date) ||
-        wa.createdAt.localeCompare(wb.createdAt) ||
-        wa.id.localeCompare(wb.id) ||
-        a.order - b.order ||
-        a.createdAt.localeCompare(b.createdAt) ||
-        a.id.localeCompare(b.id)
-      );
+      return compareWorkouts(wa, wb) || compareSetsInWorkout(a, b);
     });
 
     let maxWeight: number | null = null;

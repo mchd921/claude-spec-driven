@@ -1,3 +1,4 @@
+import { compareWorkouts } from './chronology';
 import type { ISODate, Workout, WorkoutSet } from './types';
 
 type SetValue = Pick<WorkoutSet, 'weightTenthKg' | 'reps'>;
@@ -62,7 +63,7 @@ export function seriesByWorkout(
 
   return workouts
     .filter((w) => byWorkout.has(w.id))
-    .sort((a, b) => a.date.localeCompare(b.date) || a.createdAt.localeCompare(b.createdAt))
+    .sort(compareWorkouts)
     .map((w) => {
       const list = byWorkout.get(w.id)!;
       return {
