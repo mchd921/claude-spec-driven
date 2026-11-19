@@ -212,7 +212,8 @@ Dexie の `populate` イベント（DB 新規作成時に 1 回だけ実行さ�
 
 ```ts
 volume(sets)          = Σ (weightKg × reps)
-estimated1RM(w, r)    = w × (1 + r / 30)          // Epley 式（要件の用語定義どおり。r=1 でも式を適用）
+estimated1RM(set)     = w × (1 + r / 30)          // Epley 式（要件の用語定義どおり。r=1 でも式を適用）
+estimated1RMUnits(set) = 重量×10 × (30 + r)        // 1/300kg 単位の整数。PR 判定で「厳密に上回る」を誤差なく比較するために使う
 summarizeWorkout(sets) → { setCount, totalVolume }                      // REQ-3.2
 seriesByWorkout(exerciseId, sets, workouts)
                       → { date, maxWeight, maxE1RM, volume }[]          // REQ-3.8〜3.10
