@@ -201,7 +201,7 @@ Dexie の `populate` イベント（DB 新規作成時に 1 回だけ実行さ�
 | 関数 | ルール | 要件 |
 | --- | --- | --- |
 | `validateSet(weightKg, reps)` | 重量: 数値・0〜999.9・小数第 1 位まで / 回数: 整数・1〜999。未入力はエラー | REQ-1.9, 1.11 |
-| `validateExerciseName(name, existingKeys, selfId?)` | trim 後 1〜50 文字 / `nameKey` が他の種目と重複しない（編集時は自分自身を除く） | REQ-2.3, 2.4, 2.6 |
+| `validateExerciseName(name, existing, selfId?)`（`existing` は `{ id, nameKey }` の配列） | trim 後 1〜50 文字 / `nameKey` が他の種目と重複しない（編集時は自分自身を除く） | REQ-2.3, 2.4, 2.6 |
 | `validateTemplate(name, items)` | trim 後 1〜50 文字 / items が 1 件以上 / targetSets は null または 1〜20 の整数 | REQ-4.2, 4.3, 4.4 |
 | `validateWorkoutDate(date, today)` | `date <= today` | REQ-1.17 |
 | `MEMO_MAX_LENGTH = 500` | 入力欄の `maxLength` として使用 | REQ-1.15 |
