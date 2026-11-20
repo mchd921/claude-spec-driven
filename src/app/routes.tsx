@@ -1,5 +1,6 @@
 import { Link } from '@astryxdesign/core/Link';
 import { Route, Routes } from 'react-router';
+import { ExercisesPage } from '../ui/pages/ExercisesPage';
 import { PlaceholderPage } from '../ui/pages/PlaceholderPage';
 import { AppLayout } from './AppLayout';
 
@@ -21,7 +22,7 @@ export function AppRoutes() {
         />
         <Route path="templates/new" element={<PlaceholderPage title="メニュー作成" />} />
         <Route path="templates/:id" element={<PlaceholderPage title="メニュー編集" />} />
-        <Route path="exercises" element={<PlaceholderPage title="種目マスタ" />} />
+        <Route path="exercises" element={<ExercisesPage />} />
         <Route
           path="settings"
           element={
