@@ -3,6 +3,8 @@ import { Route, Routes } from 'react-router';
 import { ExercisesPage } from '../ui/pages/ExercisesPage';
 import { HistoryPage } from '../ui/pages/HistoryPage';
 import { HomePage } from '../ui/pages/HomePage';
+import { TemplateEditPage } from '../ui/pages/TemplateEditPage';
+import { TemplatesPage } from '../ui/pages/TemplatesPage';
 import { ProgressPage } from '../ui/pages/ProgressPage';
 import { WorkoutPage } from '../ui/pages/WorkoutPage';
 import { PlaceholderPage } from '../ui/pages/PlaceholderPage';
@@ -16,16 +18,9 @@ export function AppRoutes() {
         <Route path="workouts/:id" element={<WorkoutPage />} />
         <Route path="history" element={<HistoryPage />} />
         <Route path="progress" element={<ProgressPage />} />
-        <Route
-          path="templates"
-          element={
-            <PlaceholderPage title="メニュー">
-              <Link href="/templates/new">メニューを作成</Link>
-            </PlaceholderPage>
-          }
-        />
-        <Route path="templates/new" element={<PlaceholderPage title="メニュー作成" />} />
-        <Route path="templates/:id" element={<PlaceholderPage title="メニュー編集" />} />
+        <Route path="templates" element={<TemplatesPage />} />
+        <Route path="templates/new" element={<TemplateEditPage />} />
+        <Route path="templates/:id" element={<TemplateEditPage />} />
         <Route path="exercises" element={<ExercisesPage />} />
         <Route
           path="settings"
