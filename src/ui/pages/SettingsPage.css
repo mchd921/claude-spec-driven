@@ -1,0 +1,19 @@
+.settings-section {
+  display: grid;
+  gap: 12px;
+  max-width: 480px;
+  margin-block: 16px;
+}
+.settings-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.settings-file-input {
+  /* 見えないが、スクリーンリーダーや自動テストからは操作できる（ボタン経由で開く） */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  overflow: hidden;
+}

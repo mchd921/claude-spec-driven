@@ -1,8 +1,8 @@
-import { Link } from '@astryxdesign/core/Link';
 import { Route, Routes } from 'react-router';
 import { ExercisesPage } from '../ui/pages/ExercisesPage';
 import { HistoryPage } from '../ui/pages/HistoryPage';
 import { HomePage } from '../ui/pages/HomePage';
+import { SettingsPage } from '../ui/pages/SettingsPage';
 import { TemplateEditPage } from '../ui/pages/TemplateEditPage';
 import { TemplatesPage } from '../ui/pages/TemplatesPage';
 import { ProgressPage } from '../ui/pages/ProgressPage';
@@ -22,14 +22,7 @@ export function AppRoutes() {
         <Route path="templates/new" element={<TemplateEditPage />} />
         <Route path="templates/:id" element={<TemplateEditPage />} />
         <Route path="exercises" element={<ExercisesPage />} />
-        <Route
-          path="settings"
-          element={
-            <PlaceholderPage title="設定">
-              <Link href="/exercises">種目マスタ</Link>
-            </PlaceholderPage>
-          }
-        />
+        <Route path="settings" element={<SettingsPage />} />
         <Route path="*" element={<PlaceholderPage title="ページが見つかりません" />} />
       </Route>
     </Routes>
