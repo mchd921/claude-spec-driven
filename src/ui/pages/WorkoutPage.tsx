@@ -10,7 +10,11 @@ import { useParams } from 'react-router';
 import { useDatabase } from '../../app/DatabaseContext';
 import { useReportSaveError } from '../../app/useReportSaveError';
 import type { Exercise, WorkoutExercise } from '../../domain/types';
-import { addExercise, removeExercise } from '../../services/workoutService';
+import { computePRs } from '../../domain/pr';
+import { findPreviousRecord, getSetDefaults } from '../../domain/setDefaults';
+import { compareSetsInWorkout } from '../../domain/chronology';
+import { addExercise, addSet, deleteSet, removeExercise, updateSet } from '../../services/workoutService';
+import { ExerciseSets } from '../components/ExerciseSets';
 import { ExercisePicker } from '../components/ExercisePicker';
 import './WorkoutPage.css';
 
@@ -27,11 +31,9 @@ export function WorkoutPage() {
     const workout = await db.workouts.get(id);
     if (!workout) return { workout: null } as const;
     const entries = await db.workoutExercises.where('workoutId').equals(id).sortBy('order');
-    const setCounts = new Map<string, number>();
-    for (const set of await db.sets.where('workoutId').equals(id).toArray()) {
-      setCounts.set(set.workoutExerciseId, (setCounts.get(set.workoutExerciseId) ?? 0) + 1);
-    }
-    return { workout, entries, setCounts } as const;
+    // 前回の記録と自己ベストの判定には、全ワークアウト・全セットが必要
+    const [allWorkouts, allSets] = await Promise.all([db.workouts.toArray(), db.sets.toArray()]);
+    return { workout, entries, allWorkouts, allSets } as const;
   }, [db, id]);
   const exercises = useLiveQuery(() => db.exercises.toArray(), [db]);
 
@@ -57,6 +59,19 @@ export function WorkoutPage() {
     }
   };
 
+  /** セットの保存。入力エラーは入力欄に返し、予期しない例外は Toast で通知する。 */
+  const saveSet = async (
+    work: () => Promise<{ ok: true } | { ok: false; errors: Record<string, string> }>,
+  ): Promise<Record<string, string> | null> => {
+    try {
+      const result = await work();
+      return result.ok ? null : result.errors;
+    } catch (error) {
+      reportSaveError(error);
+      return {};
+    }
+  };
+
   const remove = async () => {
     if (!removing) return;
     const { entry } = removing;
@@ -68,7 +83,10 @@ export function WorkoutPage() {
     }
   };
 
-  const { workout, entries, setCounts } = data;
+  const { workout, entries, allWorkouts, allSets } = data;
+  const prs = computePRs(allSets, allWorkouts);
+  const setsOf = (entryId: string) =>
+    allSets.filter((set) => set.workoutExerciseId === entryId).sort(compareSetsInWorkout);
 
   return (
     <>
@@ -92,11 +110,21 @@ export function WorkoutPage() {
               variant="ghost"
               onClick={() => {
                 const name = nameOf(entry.exerciseId);
-                if ((setCounts.get(entry.id) ?? 0) === 0) void removeExercise(db, entry.id).catch(reportSaveError);
+                if (setsOf(entry.id).length === 0) void removeExercise(db, entry.id).catch(reportSaveError);
                 else setRemoving({ entry, name });
               }}
             />
           </div>
+          <ExerciseSets
+            entry={entry}
+            sets={setsOf(entry.id)}
+            previous={findPreviousRecord(entry.exerciseId, workout, allSets, allWorkouts)}
+            defaults={getSetDefaults(entry.exerciseId, workout, allSets, allWorkouts)}
+            prs={prs}
+            onAdd={(values) => saveSet(() => addSet(db, entry.id, values))}
+            onUpdate={(setId, values) => saveSet(() => updateSet(db, setId, values))}
+            onDelete={(setId) => void deleteSet(db, setId).catch(reportSaveError)}
+          />
         </section>
       ))}
 

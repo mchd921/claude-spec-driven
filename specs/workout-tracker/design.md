@@ -407,7 +407,7 @@ flowchart LR
 | 用途 | Astryx コンポーネント | 要件 |
 | --- | --- | --- |
 | アプリ枠・ナビゲーション | `AppShell`, `SideNav`, `TopNav`（スマホの下部タブは自作） | NFR-2, NFR-3 |
-| 重量・回数の入力 | `NumberInput` | REQ-1.8 |
+| 重量・回数の入力 | `TextInput`（小数・数値キーボード）+ 自作の −/+ ボタン | REQ-1.8, 1.9 |
 | 種目名・メニュー名 | `TextInput`, `Field`, `FieldStatus`（エラー表示） | REQ-1.9, 2.3 |
 | メモ | `TextArea`（`maxLength=500`） | REQ-1.14, 1.15 |
 | 日付変更 | `DateInput` | REQ-1.16 |
