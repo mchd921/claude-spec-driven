@@ -1,0 +1,21 @@
+.workout-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-block: 8px 16px;
+}
+.workout-exercise {
+  border: 1px solid var(--astryx-color-border, rgb(128 128 128 / 0.3));
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin-bottom: 12px;
+}
+.workout-exercise-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.workout-add {
+  margin-block: 16px;
+}

@@ -2,6 +2,7 @@ import { Link } from '@astryxdesign/core/Link';
 import { Route, Routes } from 'react-router';
 import { ExercisesPage } from '../ui/pages/ExercisesPage';
 import { HomePage } from '../ui/pages/HomePage';
+import { WorkoutPage } from '../ui/pages/WorkoutPage';
 import { PlaceholderPage } from '../ui/pages/PlaceholderPage';
 import { AppLayout } from './AppLayout';
 
@@ -10,7 +11,7 @@ export function AppRoutes() {
     <Routes>
       <Route element={<AppLayout />}>
         <Route index element={<HomePage />} />
-        <Route path="workouts/:id" element={<PlaceholderPage title="ワークアウト記録" />} />
+        <Route path="workouts/:id" element={<WorkoutPage />} />
         <Route path="history" element={<PlaceholderPage title="履歴" />} />
         <Route path="progress" element={<PlaceholderPage title="グラフ" />} />
         <Route
