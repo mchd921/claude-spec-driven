@@ -1,4 +1,4 @@
-import type { ID, ISODate, TemplateItem } from './types';
+import { BODY_PARTS, type BodyPart, type ID, type ISODate, type TemplateItem } from './types';
 
 export const MEMO_MAX_LENGTH = 500;
 export const NAME_MAX_LENGTH = 50;
@@ -90,6 +90,13 @@ export function validateExerciseName(
     return fail({ name: '同じ名前の種目が既にあります（重複しています）。' });
   }
   return ok({ name: trimmed, nameKey });
+}
+
+// ---- 部位（REQ-2.2, 2.5）-----------------------------------------------------
+
+export function validateBodyPart(value: unknown): ValidationResult<BodyPart> {
+  if ((BODY_PARTS as readonly unknown[]).includes(value)) return ok(value as BodyPart);
+  return fail({ bodyPart: '部位を選択してください。' });
 }
 
 // ---- メニュー（REQ-4.2, 4.3, 4.4）-------------------------------------------

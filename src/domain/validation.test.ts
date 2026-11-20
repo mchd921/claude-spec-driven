@@ -4,6 +4,7 @@ import {
   kgToTenthKg,
   MEMO_MAX_LENGTH,
   tenthKgToKg,
+  validateBodyPart,
   validateExerciseName,
   validateSet,
   validateTemplate,
@@ -154,6 +155,22 @@ describe('validateExerciseName', () => {
 
   it('REQ-2.6: 編集時でも文字数の範囲外は拒否する', () => {
     expect(validateExerciseName('', existing, 'a').ok).toBe(false);
+  });
+});
+
+describe('validateBodyPart', () => {
+  it('REQ-2.2: 定義済みの部位を受け付ける', () => {
+    for (const part of ['chest', 'back', 'legs', 'shoulders', 'arms', 'abs', 'other']) {
+      expect(validateBodyPart(part)).toEqual({ ok: true, value: part });
+    }
+  });
+
+  it('REQ-2.2: 未定義の値・未選択を拒否し、bodyPart のエラーを返す', () => {
+    for (const value of ['neck', '', null, undefined, 1]) {
+      const result = validateBodyPart(value);
+      expect(result.ok).toBe(false);
+      if (!result.ok) expect(result.errors.bodyPart).toBeTruthy();
+    }
   });
 });
 
