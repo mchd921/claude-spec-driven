@@ -35,19 +35,24 @@ export async function startWorkout(
     const running = await db.workouts.where('status').equals('in_progress').first();
     if (running) return { workoutId: running.id, created: false };
 
-    const now = deps.now();
-    const workout: Workout = {
-      id: deps.newId(),
-      date: deps.today(),
-      status: 'in_progress',
-      memo: '',
-      createdAt: now,
-      completedAt: null,
-      updatedAt: now,
-    };
+    const workout = buildNewWorkout(deps);
     await db.workouts.add(workout);
     return { workoutId: workout.id, created: true };
   });
+}
+
+/** 当日の日付・進行中・空のワークアウトを作る（保存はしない）。メニューからの開始でも使う。 */
+export function buildNewWorkout(deps: ServiceDeps): Workout {
+  const now = deps.now();
+  return {
+    id: deps.newId(),
+    date: deps.today(),
+    status: 'in_progress',
+    memo: '',
+    createdAt: now,
+    completedAt: null,
+    updatedAt: now,
+  };
 }
 
 /**

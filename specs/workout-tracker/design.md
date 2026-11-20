@@ -295,9 +295,10 @@ currentSets（このワークアウト内の同種目セット）が 1 件以上
 
 | 関数 | 処理 | 要件 |
 | --- | --- | --- |
-| `createTemplate / updateTemplate` | `validateTemplate` で検証して保存 | REQ-4.1〜4.6 |
-| `deleteTemplate(id)` | 削除 | REQ-4.7 |
-| `draftFromWorkout(workoutId)` | 種目順と各種目のセット数を `targetSets` とした下書きを返す（保存はしない）。セット数が 20 を超える場合は 20 にする | REQ-4.11 |
+| `createTemplate / updateTemplate` | `validateTemplate` で検証し、各項目の種目が存在することも確認して保存する。アーカイブ済みの種目は新しく追加できない（`updateTemplate` では、すでにそのメニューに含まれているものは残せる）。種目の並べ替えは、新しい順序で `updateTemplate` を呼ぶ | REQ-4.1〜4.6, 2.9 |
+| `deleteTemplate(id)` | 削除（`deleted` / `not_found` を返す） | REQ-4.7 |
+| `startWorkoutFromTemplate(templateId)` | 5.1 節のとおり。進行中があれば新規作成も種目の追加もしない。アーカイブ済みの種目は追加せず、`skippedExerciseNames` で返す。追加した種目の `order` は 0 から連続させる | REQ-1.24, 4.8, 4.9 |
+| `draftFromWorkout(workoutId)` | 種目順と各種目のセット数を `targetSets` とした下書きを返す（保存はしない）。セット数が 20 を超える場合は 20、セットがない種目は `null`。名前は空にする。アーカイブ済みの種目は含めず、`excludedExerciseNames` で返す | REQ-4.11 |
 
 ### 5.4 バックアップ（`backupService.ts`）
 
