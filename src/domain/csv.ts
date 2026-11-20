@@ -8,7 +8,7 @@ import {
 } from './types';
 
 /** Excel で文字化けしないよう、ファイルの先頭に付ける UTF-8 の BOM。 */
-export const CSV_BOM = '﻿';
+export const CSV_BOM = '\uFEFF';
 export const CSV_HEADER = '日付,種目,部位,セット番号,重量,回数';
 const LINE_BREAK = '\r\n';
 

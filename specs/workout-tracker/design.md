@@ -325,6 +325,8 @@ currentSets（このワークアウト内の同種目セット）が 1 件以上
 
 検証（1〜3）は確認ダイアログ（REQ-5.3）より**前**に行う。不正なファイルの場合、確認を求めずにエラーを表示する。
 
+**サービスの関数（`backupService.ts`）:** `exportBackup(db)`（全テーブルを 1 つの読み取りトランザクションで読む）、`serializeBackup(file)`、`restoreBackup(db, backup)`（手順 4・5。念のため受け取った値を再検証し、不正なら何も書き込まずエラーを返す。書き込み中の例外はロールバックしたうえで投げる）、`exportSetsCsv(db)`、`backupFileName(today)`、`csvFileName(today)`。画面側は `parseBackupText`（手順 1〜3）→ 確認ダイアログ → `restoreBackup` の順に呼ぶ。
+
 **CSV エクスポート（REQ-5.7）**
 
 - 列: `日付,種目,部位,セット番号,重量,回数`。日付の古い順、同じワークアウト内は種目順・セット順に並べる。

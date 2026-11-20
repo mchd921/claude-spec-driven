@@ -59,7 +59,7 @@ describe('escapeCsvField', () => {
 describe('createSetsCsv', () => {
   it('REQ-5.7: 先頭に UTF-8 の BOM を付ける', () => {
     expect(createSetsCsv(base()).startsWith(CSV_BOM)).toBe(true);
-    expect(CSV_BOM).toBe('﻿');
+    expect(CSV_BOM).toBe('\uFEFF');
   });
 
   it('REQ-5.7: 1 行目は「日付,種目,部位,セット番号,重量,回数」', () => {
