@@ -16,29 +16,30 @@ export function ProgressPage() {
   const [exerciseId, setExerciseId] = useState<string | null>(null);
   const [period, setPeriod] = useState<Period>('3m');
 
-  const data = useLiveQuery(async () => {
-    const [exercises, workouts, sets] = await Promise.all([
-      db.exercises.toArray(),
-      db.workouts.toArray(),
-      db.sets.toArray(),
-    ]);
-    return { exercises, workouts, sets };
-  }, [db]);
+  // 種目の一覧は小さいので全件読む。セットは、選んだ種目の分だけ exerciseId のインデックスから読む（NFR-5）。
+  const exercises = useLiveQuery(() => db.exercises.toArray(), [db]);
+  const series = useLiveQuery(async () => {
+    if (!exerciseId) return null;
+    const sets = await db.sets.where('exerciseId').equals(exerciseId).toArray();
+    const workoutIds = [...new Set(sets.map((set) => set.workoutId))];
+    const workouts = (await db.workouts.bulkGet(workoutIds)).filter((w) => w !== undefined);
+    return { sets, workouts };
+  }, [db, exerciseId]);
 
   const options = useMemo(
     () =>
-      (data?.exercises ?? [])
+      (exercises ?? [])
         .slice()
         .sort((a, b) => a.name.localeCompare(b.name, 'ja'))
         .map((e) => ({ value: e.id, label: e.archived ? `${e.name}（アーカイブ済み）` : e.name })),
-    [data],
+    [exercises],
   );
 
   const points = useMemo(() => {
-    if (!data || !exerciseId) return null;
-    const all = seriesByWorkout(exerciseId, data.sets, data.workouts);
+    if (!series || !exerciseId) return null;
+    const all = seriesByWorkout(exerciseId, series.sets, series.workouts);
     return filterByPeriod(all, period, defaultDeps.today());
-  }, [data, exerciseId, period]);
+  }, [series, exerciseId, period]);
 
   return (
     <>

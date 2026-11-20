@@ -5,6 +5,11 @@
   display: grid;
   gap: 12px;
 }
+.history-item {
+  /* 画面の外にある項目はレイアウトと描画を省き、長い一覧でも速く表示する（NFR-5）。 */
+  content-visibility: auto;
+  contain-intrinsic-size: auto 120px;
+}
 .history-item-head {
   display: flex;
   align-items: center;
