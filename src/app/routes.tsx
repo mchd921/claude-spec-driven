@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router';
 import { ExercisesPage } from '../ui/pages/ExercisesPage';
 import { HistoryPage } from '../ui/pages/HistoryPage';
 import { HomePage } from '../ui/pages/HomePage';
+import { ProgressPage } from '../ui/pages/ProgressPage';
 import { WorkoutPage } from '../ui/pages/WorkoutPage';
 import { PlaceholderPage } from '../ui/pages/PlaceholderPage';
 import { AppLayout } from './AppLayout';
@@ -14,7 +15,7 @@ export function AppRoutes() {
         <Route index element={<HomePage />} />
         <Route path="workouts/:id" element={<WorkoutPage />} />
         <Route path="history" element={<HistoryPage />} />
-        <Route path="progress" element={<PlaceholderPage title="グラフ" />} />
+        <Route path="progress" element={<ProgressPage />} />
         <Route
           path="templates"
           element={

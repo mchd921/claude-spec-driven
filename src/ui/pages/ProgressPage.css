@@ -1,0 +1,6 @@
+.progress-controls {
+  display: grid;
+  gap: 12px;
+  max-width: 480px;
+  margin-block: 12px;
+}

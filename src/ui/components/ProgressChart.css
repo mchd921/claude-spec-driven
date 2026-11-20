@@ -1,0 +1,7 @@
+.progress-chart {
+  margin-block: 16px;
+}
+.progress-chart-plot {
+  width: 100%;
+  min-width: 0;
+}
