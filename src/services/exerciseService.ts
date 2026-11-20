@@ -6,6 +6,7 @@ import {
   type ValidationResult,
 } from '../domain/validation';
 import { defaultDeps, type ServiceDeps } from './deps';
+import { failure, notFound, success } from './result';
 
 export interface ExerciseInput {
   name: string;
@@ -15,9 +16,6 @@ export interface ExerciseInput {
 export type DeleteOutcome = 'deleted' | 'archived' | 'not_found';
 
 const DUPLICATE_MESSAGE = '同じ名前の種目が既にあります（重複しています）。';
-
-const failure = <T>(errors: Record<string, string>): ValidationResult<T> => ({ ok: false, errors });
-const success = <T>(value: T): ValidationResult<T> => ({ ok: true, value });
 
 /** 一意インデックス違反（ConstraintError）か。 */
 function isConstraintError(error: unknown): boolean {
@@ -80,7 +78,7 @@ export async function updateExercise(
   try {
     return await db.transaction('rw', db.exercises, async () => {
       const current = await db.exercises.get(id);
-      if (!current) return failure<Exercise>({ id: '種目が見つかりません。' });
+      if (!current) return notFound<Exercise>('種目');
 
       const existing = await db.exercises.toArray();
       const checked = validateInput(input, existing, id);
@@ -139,7 +137,7 @@ export async function restoreExercise(
 ): Promise<ValidationResult<Exercise>> {
   return db.transaction('rw', db.exercises, async () => {
     const exercise = await db.exercises.get(id);
-    if (!exercise) return failure<Exercise>({ id: '種目が見つかりません。' });
+    if (!exercise) return notFound<Exercise>('種目');
     if (!exercise.archived) return success(exercise);
 
     const restored: Exercise = { ...exercise, archived: false, updatedAt: deps.now() };

@@ -273,10 +273,11 @@ currentSets（このワークアウト内の同種目セット）が 1 件以上
 
 | 関数 | 処理 | 要件 |
 | --- | --- | --- |
-| `startWorkout(templateId?)` | トランザクション内で `status='in_progress'` のワークアウトを探す。あればその ID を返す（新規作成しない）。なければ当日の日付で作成し、メニュー指定時は有効な種目を順に追加する。アーカイブ済みで除外した種目名も返す | REQ-1.1, 1.24, 4.8, 4.9 |
-| `finishWorkout(id)` | セット数が 0 なら `{ needsDiscardConfirm: true }` を返す。1 以上なら `status='completed'`, `completedAt` を設定 | REQ-1.20, 1.21 |
-| `discardWorkout(id)` | ワークアウトと関連する WorkoutExercise・Set を削除 | REQ-1.22, 3.5 |
-| `addExercise(workoutId, exerciseId)` | 末尾の `order` で追加 | REQ-1.4 |
+| `startWorkout()` | トランザクション内で `status='in_progress'` のワークアウトを探す。あれば `{ workoutId, created: false }` を返す（新規作成しない）。なければ端末のローカル日付で作成し `{ workoutId, created: true }` を返す | REQ-1.1, 1.24 |
+| `startWorkoutFromTemplate(templateId)` | `startWorkout` と同じ判定のうえ、新規作成時はメニューの有効な種目を順に追加する。アーカイブ済みで除外した種目名も返す（5.3 節、T2.4 で実装） | REQ-1.24, 4.8, 4.9 |
+| `finishWorkout(id)` | セット数が 0 なら `{ status: 'needs_discard_confirm' }` を返す。1 以上なら `status='completed'`, `completedAt` を設定して `{ status: 'finished' }` を返す。すでに完了していれば何も変えず `finished`。存在しなければ `not_found` | REQ-1.20, 1.21 |
+| `deleteWorkout(id)` | ワークアウトと関連する WorkoutExercise・Set を削除する。セットのないワークアウトの破棄（REQ-1.22）と、履歴からの削除（REQ-3.5）で共用する | REQ-1.22, 3.5 |
+| `addExercise(workoutId, exerciseId)` | 既存の最大の `order` の次で追加する（削除後も順序を再利用しない）。アーカイブ済みの種目はエラー | REQ-1.4, 2.9 |
 | `removeExercise(workoutExerciseId)` | WorkoutExercise と配下のセットを削除 | REQ-1.13 |
 | `addSet / updateSet / deleteSet` | `validateSet` で検証し、失敗時はエラーを返して書き込まない | REQ-1.8〜1.12 |
 | `updateMemo(id, memo)` | 500 文字に切り詰めて保存 | REQ-1.14, 1.15 |

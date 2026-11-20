@@ -4,6 +4,7 @@ import {
   kgToTenthKg,
   MEMO_MAX_LENGTH,
   tenthKgToKg,
+  truncateMemo,
   validateBodyPart,
   validateExerciseName,
   validateSet,
@@ -246,6 +247,24 @@ describe('validateWorkoutDate', () => {
     for (const date of ['', '2026-1-1', '2026/11/17', '2026-13-01', '2026-02-30', '2025-02-29', 'abc']) {
       expect(validateWorkoutDate(date, '2026-11-17').ok).toBe(false);
     }
+  });
+});
+
+describe('truncateMemo', () => {
+  it('REQ-1.15: 500 文字以内のメモはそのまま返す', () => {
+    expect(truncateMemo('')).toBe('');
+    expect(truncateMemo('あ'.repeat(500))).toBe('あ'.repeat(500));
+  });
+
+  it('REQ-1.15: 501 文字目以降を切り捨てる', () => {
+    expect(truncateMemo('あ'.repeat(501))).toBe('あ'.repeat(500));
+    expect(truncateMemo('あ'.repeat(1000))).toHaveLength(500);
+  });
+
+  it('REQ-1.15: サロゲートペアの文字を途中で分割しない', () => {
+    const result = truncateMemo('𠮷'.repeat(501));
+    expect(Array.from(result)).toHaveLength(500);
+    expect(result).toBe('𠮷'.repeat(500));
   });
 });
 

@@ -63,6 +63,12 @@ export function validateSet(
   return ok({ weightTenthKg, reps });
 }
 
+/** メモを 500 文字（サロゲートペアは 1 文字）以内に切り詰める（REQ-1.15）。 */
+export function truncateMemo(memo: string): string {
+  const chars = Array.from(memo);
+  return chars.length <= MEMO_MAX_LENGTH ? memo : chars.slice(0, MEMO_MAX_LENGTH).join('');
+}
+
 // ---- 種目名（REQ-2.3, 2.4, 2.6）---------------------------------------------
 
 /** 重複判定用のキー: 前後の空白を除き、NFKC 正規化して小文字にする。 */

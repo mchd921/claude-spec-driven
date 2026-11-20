@@ -33,7 +33,7 @@ export function setupTestDb(): { readonly db: WorkoutDatabase } {
 }
 
 /** ID と時刻が予測できるテスト用の依存。時刻は呼ぶたびに 1 秒進む。 */
-export function testDeps(): ServiceDeps & { tick: () => string } {
+export function testDeps(options: { today?: string } = {}): ServiceDeps & { tick: () => string } {
   let id = 0;
   let sec = 0;
   const stamp = () => new Date(Date.UTC(2026, 10, 17, 10, 0, sec)).toISOString();
@@ -43,6 +43,7 @@ export function testDeps(): ServiceDeps & { tick: () => string } {
       sec += 1;
       return stamp();
     },
+    today: () => options.today ?? '2026-11-17',
     tick: stamp,
   };
 }
