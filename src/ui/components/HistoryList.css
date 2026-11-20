@@ -16,3 +16,7 @@
   gap: 4px;
 }
 .history-more { margin-block: 16px; display: flex; justify-content: center; }
+.history-item-body {
+  display: grid;
+  gap: 2px;
+}

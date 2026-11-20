@@ -49,6 +49,7 @@ export function HistoryList({ items }: { items: readonly HistoryItem[] }) {
           return (
             <li key={workout.id} className="history-item">
               <ClickableCard label={`${workout.date}のワークアウトを開く`} href={`/workouts/${workout.id}`} padding={3}>
+                <div className="history-item-body">
                 <div className="history-item-head">
                   <Text type="label">{workout.date}</Text>
                   {workout.status === 'in_progress' && <Badge variant="info" label="進行中" />}
@@ -57,6 +58,7 @@ export function HistoryList({ items }: { items: readonly HistoryItem[] }) {
                 <Text type="supporting">
                   {setCount} セット ・ {round1(totalVolume).toLocaleString('ja-JP')} kg
                 </Text>
+                </div>
               </ClickableCard>
               <div className="history-item-actions">
                 <Button
