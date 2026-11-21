@@ -62,7 +62,7 @@ export function WorkoutPage() {
     return (
       <>
         <Heading level={1}>ワークアウト記録</Heading>
-        <EmptyState title="ワークアウトが見つかりません" description="削除されたか、URL が正しくありません。" />
+        <EmptyState headingLevel={2} title="ワークアウトが見つかりません" description="削除されたか、URL が正しくありません。" />
       </>
     );
   }
@@ -160,7 +160,7 @@ export function WorkoutPage() {
       </div>
 
       {entries.length === 0 && (
-        <EmptyState title="種目がありません" description="「種目を追加」から、行う種目を選んでください。" />
+        <EmptyState headingLevel={2} title="種目がありません" description="「種目を追加」から、行う種目を選んでください。" />
       )}
 
       {entries.map((entry) => (
@@ -168,7 +168,7 @@ export function WorkoutPage() {
           <div className="workout-exercise-header">
             <Heading level={2}>{nameOf(entry.exerciseId)}</Heading>
             <Button
-              label="削除"
+              label="外す"
               aria-label={`${nameOf(entry.exerciseId)}をワークアウトから外す`}
               variant="ghost"
               onClick={() => {

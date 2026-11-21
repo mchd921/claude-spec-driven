@@ -61,11 +61,12 @@ export function HistoryCalendar({ initialDate, workoutDates, selectedDate, onSel
                     data-outside={day.isOutside || undefined}
                     data-has-workout={has || undefined}
                     aria-pressed={selectedDate === day.iso}
-                    aria-label={`${day.iso}${has ? '（ワークアウトあり）' : ''}`}
+                    aria-label={`${day.dayNumber}日 ${day.iso}${has ? '（ワークアウトあり）' : ''}`}
                     onClick={() => onSelect(day.iso)}
                   >
                     <span>{day.dayNumber}</span>
-                    <span className="history-calendar-mark" aria-hidden>{has ? '●' : ''}</span>
+                    {/* 印は CSS の疑似要素で描く（表示テキストと読み上げ名を一致させるため） */}
+                    <span className="history-calendar-mark" aria-hidden />
                   </button>
                 </div>
               );

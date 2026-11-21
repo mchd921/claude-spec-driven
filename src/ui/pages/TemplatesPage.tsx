@@ -40,7 +40,7 @@ export function TemplatesPage() {
         <Link href="/templates/new">メニューを作成</Link>
       </div>
       {templates && templates.length === 0 && (
-        <EmptyState title="メニューがありません" description="よく行う種目の組み合わせをメニューにしておくと、ホームから 1 タップで始められます。" />
+        <EmptyState headingLevel={2} title="メニューがありません" description="よく行う種目の組み合わせをメニューにしておくと、ホームから 1 タップで始められます。" />
       )}
       <ul className="templates-list">
         {templates?.map((template) => (

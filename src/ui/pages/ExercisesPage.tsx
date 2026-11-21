@@ -143,7 +143,7 @@ export function ExercisesPage() {
       </section>
 
       {exercises && active.length === 0 && (
-        <EmptyState title="種目がありません" description="上のフォームから種目を追加してください。" />
+        <EmptyState headingLevel={2} title="種目がありません" description="上のフォームから種目を追加してください。" />
       )}
 
       {BODY_PARTS.map((part) => {

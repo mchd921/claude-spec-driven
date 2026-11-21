@@ -4,8 +4,13 @@
   gap: 12px;
   margin-block: 8px 16px;
 }
+/* 狭い画面で、状態のバッジが縮んで文字が欠けないようにする */
+.workout-meta > :last-child {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
 .workout-exercise {
-  border: 1px solid var(--astryx-color-border, rgb(128 128 128 / 0.3));
+  border: 1px solid var(--color-border, rgb(128 128 128 / 0.3));
   border-radius: 12px;
   padding: 12px 16px;
   margin-bottom: 12px;

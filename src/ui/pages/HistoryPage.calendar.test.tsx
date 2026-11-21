@@ -40,9 +40,9 @@ describe('履歴カレンダー', () => {
     await record('2026-11-10', 'ベンチプレス');
     await record('2026-11-10', 'スクワット');
     const grid = await openCalendar();
-    expect(within(grid).getByRole('button', { name: '2026-11-10（ワークアウトあり）' })).toBeInTheDocument();
-    expect(within(grid).getByRole('button', { name: '2026-11-11' })).toBeInTheDocument();
-    expect(within(grid).queryByRole('button', { name: '2026-11-11（ワークアウトあり）' })).not.toBeInTheDocument();
+    expect(within(grid).getByRole('button', { name: '10日 2026-11-10（ワークアウトあり）' })).toBeInTheDocument();
+    expect(within(grid).getByRole('button', { name: '11日 2026-11-11' })).toBeInTheDocument();
+    expect(within(grid).queryByRole('button', { name: '11日 2026-11-11（ワークアウトあり）' })).not.toBeInTheDocument();
     expect(within(grid).getAllByRole('button', { name: /ワークアウトあり/ })).toHaveLength(1);
   });
 
@@ -51,8 +51,8 @@ describe('履歴カレンダー', () => {
     await record('2026-11-10', 'ベンチプレス');
     await openCalendar();
     await userEvent.click(screen.getByRole('button', { name: '前の月' }));
-    expect(await screen.findByRole('button', { name: '2026-10-05（ワークアウトあり）' })).toBeInTheDocument();
-    expect(screen.queryByRole('button', { name: '2026-11-10（ワークアウトあり）' })).not.toBeInTheDocument();
+    expect(await screen.findByRole('button', { name: '5日 2026-10-05（ワークアウトあり）' })).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: '10日 2026-11-10（ワークアウトあり）' })).not.toBeInTheDocument();
   });
 
   it('REQ-3.7: ワークアウトがある日を選ぶと、その日の全ワークアウトが一覧表示される', async () => {
@@ -60,9 +60,10 @@ describe('履歴カレンダー', () => {
     await record('2026-11-10', 'スクワット');
     await record('2026-11-12', 'デッドリフト');
     await openCalendar();
-    await userEvent.click(screen.getByRole('button', { name: '2026-11-10（ワークアウトあり）' }));
+    await userEvent.click(screen.getByRole('button', { name: '10日 2026-11-10（ワークアウトあり）' }));
     const section = await screen.findByRole('region', { name: '2026-11-10のワークアウト' });
-    const items = within(section).getAllByRole('listitem');
+    // 選んだ日の詳細は非同期で読み込まれるので、表示されるまで待つ
+    const items = await within(section).findAllByRole('listitem');
     expect(items).toHaveLength(2);
     expect(items[0]).toHaveTextContent('スクワット');
     expect(items[1]).toHaveTextContent('ベンチプレス');
@@ -72,7 +73,7 @@ describe('履歴カレンダー', () => {
   it('REQ-3.7: ワークアウトがない日を選ぶと、その旨が表示される', async () => {
     await record('2026-11-10', 'ベンチプレス');
     await openCalendar();
-    await userEvent.click(screen.getByRole('button', { name: '2026-11-11' }));
+    await userEvent.click(screen.getByRole('button', { name: '11日 2026-11-11' }));
     expect(await screen.findByText('この日のワークアウトはありません。')).toBeInTheDocument();
   });
 

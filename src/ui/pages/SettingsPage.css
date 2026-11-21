@@ -17,3 +17,10 @@
   opacity: 0;
   overflow: hidden;
 }
+
+/* NFR-3: リンクのタップ領域を 44px 以上にする */
+.settings-section a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}

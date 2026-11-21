@@ -57,7 +57,7 @@ export function HistoryPage() {
     <>
       <Heading level={1}>履歴</Heading>
       {allWorkouts && total === 0 && (
-        <EmptyState title="記録がありません" description="ホームからワークアウトを始めると、ここに表示されます。" />
+        <EmptyState headingLevel={2} title="記録がありません" description="ホームからワークアウトを始めると、ここに表示されます。" />
       )}
       {hasAny && (
         <SegmentedControl label="表示の切り替え" value={view} onChange={setView}>

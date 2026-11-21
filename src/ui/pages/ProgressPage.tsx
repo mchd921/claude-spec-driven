@@ -59,9 +59,9 @@ export function ProgressPage() {
           ))}
         </SegmentedControl>
       </div>
-      {!exerciseId && <EmptyState title="種目を選んでください" description="選んだ種目の推移をグラフで表示します。" />}
+      {!exerciseId && <EmptyState headingLevel={2} title="種目を選んでください" description="選んだ種目の推移をグラフで表示します。" />}
       {points && points.length === 0 && (
-        <EmptyState title="記録がありません" description="この種目の、選んだ期間内の記録がありません。" />
+        <EmptyState headingLevel={2} title="記録がありません" description="この種目の、選んだ期間内の記録がありません。" />
       )}
       {points && points.length > 0 && (
         <>

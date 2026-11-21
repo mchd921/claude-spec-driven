@@ -1,3 +1,23 @@
 @import '@astryxdesign/core/reset.css';
 @import '@astryxdesign/core/astryx.css';
 @import '@astryxdesign/theme-neutral/theme.css';
+
+/*
+ * NFR-3: 操作するボタンのタップ領域を 44×44px 以上にする。
+ * Astryx のボタンは標準で 24〜36px のため、最小サイズを指定する。
+ * `:not(.x)` は詳細度を上げて、Astryx の指定より優先させるためのもの。
+ */
+button:not(.x),
+[role='radio']:not(.x),
+[role='combobox']:not(.x) {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* 入力欄（見た目の枠）と、PC・タブレット幅のサイドナビの項目も同じ（NFR-3） */
+.astryx-text-input:not(.x),
+.astryx-number-input:not(.x),
+.astryx-date-input:not(.x),
+nav a[href]:not(.x) {
+  min-height: 44px;
+}

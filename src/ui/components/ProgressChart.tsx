@@ -11,9 +11,9 @@ interface ProgressChartProps {
 }
 
 /** 線・軸・文字の色は Astryx のテーマ変数を参照し、ライト / ダークの両方で読めるようにする（NFR-10）。 */
-const LINE_COLOR = 'var(--astryx-color-fill-accent, #2563eb)';
-const TEXT_COLOR = 'var(--astryx-color-text-secondary, #555)';
-const GRID_COLOR = 'var(--astryx-color-border, rgb(128 128 128 / 0.25))';
+const LINE_COLOR = 'var(--color-accent, #2563eb)';
+const TEXT_COLOR = 'var(--color-text-secondary, #555)';
+const GRID_COLOR = 'var(--color-border, rgb(128 128 128 / 0.25))';
 
 export function ProgressChart({ title, unit, points, value }: ProgressChartProps) {
   const data = points.map((point) => ({ date: point.date, value: value(point) }));
@@ -34,9 +34,9 @@ export function ProgressChart({ title, unit, points, value }: ProgressChartProps
             <YAxis tick={{ fill: TEXT_COLOR, fontSize: 12 }} stroke={GRID_COLOR} width={48} />
             <Tooltip
               contentStyle={{
-                background: 'var(--astryx-color-background-surface, #fff)',
+                background: 'var(--color-background-surface, #fff)',
                 border: `1px solid ${GRID_COLOR}`,
-                color: 'var(--astryx-color-text-primary, #111)',
+                color: 'var(--color-text-primary, #111)',
               }}
               formatter={(v) => [`${String(v)} ${unit}`, title]}
             />

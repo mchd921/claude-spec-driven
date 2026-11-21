@@ -30,15 +30,20 @@
   cursor: pointer;
 }
 .history-calendar-day[data-outside] {
-  opacity: 0.4;
+  /* 薄くしても、文字のコントラスト比 4.5:1 以上を保つ（NFR-10）。透明度ではなく文字色で弱める。 */
+  color: var(--color-text-secondary, #595959);
 }
 .history-calendar-day[aria-pressed='true'] {
-  background: var(--astryx-color-fill-selected, rgb(128 128 128 / 0.25));
+  background: var(--color-background-muted, rgb(128 128 128 / 0.25));
   font-weight: 700;
 }
 .history-calendar-mark {
   font-size: 0.6em;
   line-height: 1;
   min-height: 0.6em;
-  color: var(--astryx-color-fill-accent, #2563eb);
+  color: var(--color-accent, #2563eb);
+}
+
+.history-calendar-day[data-has-workout] .history-calendar-mark::after {
+  content: '●';
 }

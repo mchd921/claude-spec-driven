@@ -15,7 +15,7 @@
   display: grid;
   gap: 8px;
   padding-bottom: 12px;
-  border-bottom: 1px solid var(--astryx-color-border, rgb(128 128 128 / 0.25));
+  border-bottom: 1px solid var(--color-border, rgb(128 128 128 / 0.25));
 }
 .template-item-head {
   display: flex;

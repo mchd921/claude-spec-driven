@@ -166,7 +166,7 @@ export function TemplateEditPage() {
       return (
         <>
           <Heading level={1}>メニュー編集</Heading>
-          <EmptyState title="メニューが見つかりません" description="削除された可能性があります。" />
+          <EmptyState headingLevel={2} title="メニューが見つかりません" description="削除された可能性があります。" />
         </>
       );
     }
