@@ -1,12 +1,13 @@
 .workout-meta {
-  display: flex;
+  /* 日付欄は残りの幅いっぱい、状態のバッジは内容の幅にする。
+     日付欄の幅を内容まかせにすると、Safari で日付が「2026年11月2…」と切れるため（実機で確認）。 */
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   gap: 12px;
   margin-block: 8px 16px;
 }
-/* 狭い画面で、状態のバッジが縮んで文字が欠けないようにする */
 .workout-meta > :last-child {
-  flex-shrink: 0;
   white-space: nowrap;
 }
 .workout-exercise {
