@@ -1,0 +1,33 @@
+.template-form {
+  display: grid;
+  gap: 12px;
+  max-width: 480px;
+  margin-block: 12px;
+}
+.template-items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+.template-item {
+  display: grid;
+  gap: 8px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--color-border, rgb(128 128 128 / 0.25));
+}
+.template-item-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.template-item-actions,
+.template-form-actions {
+  display: flex;
+  gap: 4px;
+}
+.template-form-actions {
+  gap: 8px;
+}

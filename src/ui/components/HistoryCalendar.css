@@ -1,0 +1,49 @@
+.history-calendar-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.history-calendar-row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+.history-calendar-dayname {
+  text-align: center;
+  font-size: 0.8em;
+  opacity: 0.7;
+  padding-block: 4px;
+}
+.history-calendar-day {
+  width: 100%;
+  min-height: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.history-calendar-day[data-outside] {
+  /* 薄くしても、文字のコントラスト比 4.5:1 以上を保つ（NFR-10）。透明度ではなく文字色で弱める。 */
+  color: var(--color-text-secondary, #595959);
+}
+.history-calendar-day[aria-pressed='true'] {
+  background: var(--color-background-muted, rgb(128 128 128 / 0.25));
+  font-weight: 700;
+}
+.history-calendar-mark {
+  font-size: 0.6em;
+  line-height: 1;
+  min-height: 0.6em;
+  color: var(--color-accent, #2563eb);
+}
+
+.history-calendar-day[data-has-workout] .history-calendar-mark::after {
+  content: '●';
+}

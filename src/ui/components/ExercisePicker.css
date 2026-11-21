@@ -1,0 +1,11 @@
+.exercise-picker-list {
+  list-style: none;
+  margin: 0 0 12px;
+  padding: 0;
+  display: grid;
+}
+.exercise-picker-list button {
+  width: 100%;
+  justify-content: flex-start;
+  min-height: 44px;
+}

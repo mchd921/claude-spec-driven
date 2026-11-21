@@ -1,0 +1,15 @@
+.set-input-row {
+  display: grid;
+  gap: 12px;
+  margin-top: 8px;
+}
+.set-input-field {
+  display: grid;
+  grid-template-columns: 44px 1fr 44px;
+  align-items: end;
+  gap: 8px;
+}
+.set-input-field button {
+  min-width: 44px;
+  min-height: 44px;
+}
