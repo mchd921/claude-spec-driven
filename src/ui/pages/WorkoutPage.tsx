@@ -151,6 +151,7 @@ export function WorkoutPage() {
       <div className="workout-meta">
         <DateInput
           label="日付"
+          width="100%"
           value={workout.date as DateValue}
           max={localDateString(new Date()) as DateValue}
           onChange={(value) => void changeDate(value)}
